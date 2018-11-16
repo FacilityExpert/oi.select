@@ -1,6 +1,6 @@
 #oi.select — AngularJS directive of select element
 
-This fork uses a <ion-content> from Ionic 1.x.
+This fork uses a &lt;ion-content&gt; from Ionic 1.x.
 **[Download 1.0.0](https://github.com/FacilityExpert/oi.select/tree/master/dist)**
 
 ## Features
