@@ -1,6 +1,6 @@
 angular.module('oi.select')
 
-.directive('oiSelect', ['$document', '$q', '$timeout', '$parse', '$interpolate', '$injector', '$filter', '$animate', 'oiUtils', 'oiSelect', function($document, $q, $timeout, $parse, $interpolate, $injector, $filter, $animate, oiUtils, oiSelect) {
+.directive('oiSelect', ['$document', '$q', '$timeout', '$parse', '$interpolate', '$injector', '$filter', '$animate', '$ionicScrollDelegate', 'oiUtils', 'oiSelect', function($document, $q, $timeout, $parse, $interpolate, $injector, $filter, $animate, $ionicScrollDelegate, oiUtils, oiSelect) {
     var NG_OPTIONS_REGEXP = /^\s*([\s\S]+?)(?:\s+as\s+([\s\S]+?))?(?:\s+group\s+by\s+([\s\S]+?))?(?:\s+disable\s+when\s+([\s\S]+?))?\s+for\s+(?:([\$\w][\$\w]*)|(?:\(\s*([\$\w][\$\w]*)\s*,\s*([\$\w][\$\w]*)\s*\)))\s+in\s+([\s\S]+?)(?:\s+track\s+by\s+([\s\S]+?))?$/;
     var VALUES_REGEXP     = /([^\(\)\s\|\s]*)\s*(\(.*\))?\s*(\|?\s*.+)?/;
 
@@ -190,12 +190,24 @@ angular.module('oi.select')
                         scope.inputHide = false;
                     }
 
+                    var scrollPosition = $ionicScrollDelegate.$getByHandle('oi-select-scroll').getScrollPosition();
+
                     promise.then(function(collection) {
                         scope.output = collection;
 
                         if (collection.length !== output.length) {
                             scope.removeItem(collection.length); //if newItem was not created
                         }
+
+                        scope.$applyAsync(function() {
+                            $ionicScrollDelegate.$getByHandle('oi-select-scroll').resize()
+                                .then(function() {
+                                    scope.$applyAsync(function() {
+                                        // Note: scrollBy calls resize
+                                        $ionicScrollDelegate.$getByHandle('oi-select-scroll').scrollBy(scrollPosition.left, scrollPosition.top, false);
+                                    });
+                                });
+                        });
                     });
                 });
 

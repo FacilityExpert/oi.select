@@ -1,10 +1,10 @@
 {
-    "name":    "oi.select",
+    "name": "oi.select",
     "license": "MIT",
-    "version": "0.2.21",
+    "version": "1.0.0",
     "repository": {
         "type": "git",
-        "url": "git://github.com/tamtakoe/oi.select.git"
+        "url": "git://github.com/FacilityExpert/oi.select.git"
     },
     "devDependencies": {
         "gulp": "3.9.1",
@@ -38,6 +38,7 @@
     "style": "dist/select.min.css",
     "peerDependencies": {
         "angular": ">=1.2",
-        "angular-sanitize": ">=1.2"
+        "angular-sanitize": ">=1.2",
+        "ionic": ">=1.3.2"
     }
 }
